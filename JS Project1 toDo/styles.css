@@ -1,0 +1,98 @@
+html{
+    height: 100%;
+    background-image: linear-gradient(red,black);
+    background-repeat: no-repeat;
+    font-family: 'Courier New', Courier, monospace;
+    color: black;
+    background-size: auto;
+    }
+
+    .mainMenu{
+        align-content: stretch;
+        width: 650px;
+        display: flex;
+        justify-content: left;
+        flex-direction: column;
+        margin: auto;
+    }
+
+    p{
+        text-align: center;
+        color: greenyellow;
+    }
+    h1{
+        text-align: center;
+        color: goldenrod;
+    }
+
+    form{
+        background-color: darkred;
+        padding: 20px;
+    }
+    input[type="text"]{
+        width: 310px;
+        height: 30px;
+        border: crimson;
+        outline: black;
+        background: darkorchid;
+        color: deepskyblue;
+        font-size: 2.em;
+    }
+    .Tehtävälista{
+        background-color: plum;
+        margin-top: 20px;
+        padding-bottom: 10px;
+        padding-top: 10px;
+        padding-right: 40px;
+        display: none;
+    }
+    button{
+        background-color: hotpink;
+        color: black;
+        border: blanchedalmond;
+        cursor: pointer;
+        outline: 5;
+        width: 50px;
+        font-size: 1em;
+    }
+    ul{
+        list-style: none;
+    }
+    li{
+        border-bottom: 1px solid black;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        color: black;
+        font-size: 1.5em;
+    }
+    .poista{
+        background-color: black;
+        color: chocolate;
+        border: purple;
+        outline: 5;
+        width: 50px;
+        padding: 0px 3px 0px 3px;
+        cursor: pointer;
+    }
+    a{
+        text-align: right;
+        font-size: 1.5em;
+        float: right;
+        color: black;
+        cursor: pointer;
+    }
+    @media (max-width: 500px){
+        .mainMenu{
+        width: 100%;
+        margin: auto;
+        }
+        input[type="text"]{
+        width: 80%;
+        color: black;
+        }
+        button{
+        width: 40%;
+        }
+
+
+    }
