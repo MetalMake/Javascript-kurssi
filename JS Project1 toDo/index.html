@@ -11,9 +11,9 @@
     <h1>LISTAA TÄHÄN AKTIVITEETTISI!!!</h1>
     <p>Klikkaa laatikoista yliviivataksesi tehdyt aktiviteetit!</p>
     <p>"Tyhjennä", poistaa kaikki aktiviteetit!</p>
-    <form class="" action="index.html" method="post">
-    <input type="text" placeholder="uusi tehtävä" name="tehtava">
-    <button  type="submit"><strong>Lisää</strong></button>
+    <form name="form1" action="index.html" method="post">
+    <input type="text" placeholder="uusi tehtävä" name="tehtava" onchange="vainKirjaimet(document.form1.tehtava)">
+    <button  type="submit" onclick="vainKirjaimet(document.form1.submit)"><strong>Lisää</strong></button>
     </form>
     <div class="Tehtävälista">
     <ul>

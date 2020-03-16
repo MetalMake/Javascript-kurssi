@@ -6,6 +6,8 @@ function lataaKaikki(){
 
 }
 
+
+
 function lähetä(e){
   e.preventDefault();
   var taskList;
@@ -24,6 +26,20 @@ function syotto(tehtava){
   document.querySelector('.Tehtävälista').style.display = 'inline-block';
 }
 
+function vainKirjaimet(inputtxt)
+      { 
+      var kirjaimet = /^[A-Za-z]+$/;
+      if(inputtxt.value.match(kirjaimet))
+      {
+      alert('Tehtävä hyväksytty!');
+      return true;
+      }
+      else
+      {
+      alert('ACHTUNG! Käytä vain kirjaimia. EI NUMEROITA!');
+      return false;
+      }
+      }
 
 function poistaLista(e){
   var ul = document.querySelector('ul').innerHTML = '';
