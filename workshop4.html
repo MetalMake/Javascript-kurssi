@@ -1,0 +1,249 @@
+<HTML>
+<style>
+body {
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	color: #333333;
+}
+
+div {
+    width: 200px;
+    height: 100px;
+    border: 1px solid black;
+}
+table, tr, td{
+  border: 1px solid gray;
+  width: 50%;
+}
+img {
+    position: relative;
+    left:0px;
+}
+
+</style>
+<script>
+
+function ekaNappi(){
+document.getElementsByTagName('h1')[0].innerHTML = "Muutoksia luvassa!!!";
+}
+function tokaNappi(){
+document.getElementsByTagName('h2')[1].style.fontFamily = "Impact,Charcoal,sans-serif";
+document.getElementsByTagName('h2')[1].style.color = "Red";
+document.getElementsByTagName('h2')[1].style.background = "Green";
+
+}
+function kolmasNappi(){
+let ptagit = document.getElementsByTagName('p');
+let emtagit = document.getElementsByTagName('em');
+ptagit[3].innerHTML += emtagit[1].innerHTML;
+
+}
+function piilota(){
+document.getElementById('data').style = "display: none";
+}
+function nayta(){
+document.getElementById('data').style = "display: block";
+}
+function naytaReuna(){
+document.getElementById('carimage').style = "border: 4px solid black";
+}
+function piilotaReuna(){
+document.getElementById('carimage').style = "border: 0px solid black";
+}
+function vaihdaKuva(){
+let data = document.getElementById('mySelect').value;
+let image = document.getElementById('carimage');
+alert("Valitsit: " + data);
+
+if (data == "Audi") {
+ image.src = "http://o.aolcdn.com/commerce/autodata/images/USC70AUC017A021001.jpg";
+ }
+
+else if (data =="BMW")  {
+image.src = "https://autovouhotus.fi/wp-content/uploads/2018/11/BMW-330e-1050x700.jpg";
+}
+
+else if (data =="Mercedes")  {
+image.src = "http://st.motortrend.com/uploads/sites/10/2016/09/2017-mercedes-benz-s-class-maybach-s600-sedan-angular-front.png";
+}
+
+else if (data =="Volvo")  {
+image.src = "http://o.aolcdn.com/commerce/autodata/images/USC40VOC172G021001.jpg";
+}
+}
+
+function changePosition(){
+document.getElementById('carimage').style.position = "relative";
+document.getElementById('carimage').style.top = "+500px";
+document.getElementById('carimage').style.left = "-200px";
+
+}
+
+function animoi(){
+setInterval(function(){doMove();},1000);
+}
+function doMove(){
+let img = document.getElementById('carimage');
+img.position = "relative";
+let left = parseInt(img.style.left);
+img.style.left = (left+10)+ 'px';
+console.log("Liikutettiin " + left + "px");
+}
+
+function piilota(){
+document.getElementById('carimage').style.display = "none";
+}
+
+function insertRows(){
+let table = document.getElementById("data");
+let row = table.insertRow();
+let cell1 = row.insertCell(0);
+let cell2 = row.insertCell(1);
+let cell3 = row.insertCell(2);
+let nimi = document.getElementById('textfield').value;
+let asema = document.getElementById('textfield2').value;
+let palkka = document.getElementById('textfield3').value;
+
+cell1.innerHTML = nimi;
+cell2.innerHTML = asema;
+cell3.innerHTML = palkka;
+}
+</script>
+
+<h1>Workshop 4: DOM Scripting</h1>
+<hr />
+<p>In this exercise we will practice the art of DOM Scripting with JavaScript. Use the lecture-material as a reference guide side by side these exercises. It might also be a good idea to save the lines of code you write during the exercises for later use. </p>
+
+
+<h2>Exercise 1: Basic  DOM Manipulation</h2>
+<p>&nbsp;Below you will see three buttons. Edit the source code and add an onClick-events to these buttons. Use Developer Console to find the </p>
+<p>
+  <button onclick="ekaNappi();">Button 1</button>
+  <button onclick="tokaNappi();">Button 2</button>
+  <button onclick="kolmasNappi();">Button 3</button>
+</p>
+
+<ul>
+  <li>The first button should run a JavaScript-function, which will find the reference to &quot;Workshop 4&quot; heading on this page and change the contents of it to &quot;Modified Heading!&quot;. </li>
+  <li> The second button should run a function, which </li>
+  will modify the style of the &quot;Exercise 2&quot; heading on this page. JavaScript should change at least the font size, style and color and the background color
+  <li>The third button should append the following text paragraph after the <strong>4th paragraph tag &lt;p&gt;</strong> on the page (without overwriting the current content). Change the background of the entire page as well. Note: The Lorem ipsum text should be in italics. It should also add a logo image of some sort after the text.<br>
+    <br>
+  <strong id="lorem"><em>&quot;Lorem ipsum</em></strong><em> dolor sit amet, consectetuer   adipiscing elit. Sed posuere interdum sem. Quisque ligula eros   ullamcorper quis, lacinia quis facilisis sed sapien. Mauris varius diam   vitae arcu. Sed arcu lectus auctor vitae, consectetuer et venenatis eget   velit. &quot;</em></li>
+</ul>
+
+<h2>Exercise 2: DOM Traversing using ID's and classes</h2>
+<p class="surprise">Add onchange -events to following checkboxes.</p>
+<p>
+  <label>
+    <input onchange="piilota()" name="CheckboxGroup1" type="checkbox" id="CheckboxGroup1_0" title="Actions" value="1">
+   Hide me </label>
+  <br>
+  <label>
+    <input onchange="nayta()" type="checkbox" name="CheckboxGroup1" value="2" id="CheckboxGroup1_1">
+    Show me</label>
+  <br>
+  <label>
+    <input type="checkbox" name="CheckboxGroup1" value="3" id="CheckboxGroup1_2"> 
+    <span id="surpise">Surprise</span>
+  </label>
+</p>
+<ul>
+  <li>First checkbox: Find out which element has been described with the id &quot;data&quot;. Change the visibility (display value) of the element to none. What happens?</li>
+  <li>Second checkbox should return the visibility of the element to a normal state (block).</li>
+  <li>Third checkbox should find the elements with class &quot;surprise&quot; and change the font size to 20.</li>
+</ul>
+<p>&nbsp;</p>
+  <h2>Exercise 3: Images and pulldowns</h2>
+<li>Write a JavaScript function, which will fire when the pulldown menu item is changed. Show the users choice using alert -box.</li>
+<li>When the mouse is moved on top of the image, a colored border should appear surrounding it. On mouse out, border should disappear</li>
+<li>When you have accomplished the above, change the image (id=&quot;carimage&quot;) below based on the users choice on the pulldown menu below. Find appropriate images from the web.
+  <p>Select a new car from the list.</p>
+  <select name="mySelect" id="mySelect" onchange="vaihdaKuva()">
+    <option value="BMW">BMW         
+    <option value="Audi">Audi
+    <option value="Mercedes">Mercedes
+    <option value="Volvo">Volvo
+  </select>
+  <br>
+  <br>
+<img onmouseover="naytaReuna()" onmouseout="piilotaReuna()" style="left: 0px; opacity: 1;" src="https://autotoday.fi/wp-content/uploads/2019/08/BMW-320-dA-koeajo-2019-etuviisto-Kuva-Antti-Jarvelainen-2.jpg" width="400" id="carimage"/></li>
+<h2>Exercise 4: Moving things around</h2>
+<ul>
+  <li>
+    <p class="surprise">You can do neat things by editing CSS-rules via  JavaScript. See the examples in lecture slides. Then try these:</p>
+    <ol>
+      <li><button onclick="changePosition()">Move!</button>Select the div with an id &quot;carimage&quot; and move it 200px left and 500px down</li>
+      <li><button onclick="setInterval(function(){doMove();},1000); "/>Animate</button> Write a  funtion doMove() which  will move the image across the screen, or even better: back and forth on  the screen. The Interval required has already been added to the onclick -event of the list item.</li>
+      <li><button onclick="setInterval(function(){fadeOut();},250);"/>Fade out!</button> Wite  a function fadeOut() which will slowly decrease the opacity of the image from 1.0 to  0 making it fade out. The Interval required has already been added to the onclick -event of the list item</li>
+      <li><button onclick="piilota()"/>Disappear! </button>Finally, write JavaScript which will remove the image from the page</li>
+    </ol>
+  </li>
+</ul>
+
+<h2>Exercise 5: Tables</h2>
+<ul>
+  <li class="surprise">Write a JavaScript function to  add rows to a table</li>
+  . Rows can contain preset values.
+  <li>When your code is working, try reading the content to be added from a set of fields below the table.</li>
+  <br>
+  <table id="data" class="display" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th>Nimi</th>
+        <th>Asema</th>
+        <th>Palkka</th>
+      </tr>
+    </thead>
+    <tfoot>
+    </tfoot>
+    <tbody>
+      <tr>
+        <td>Tiger Nixon</td>
+        <td>System Architect</td>
+        <td>$320,800</td>
+      </tr>
+      <tr>
+        <td>Garrett Winters</td>
+        <td>Accountant</td>
+        <td>$170,750</td>
+      </tr>
+      <tr>
+        <td>Ashton Cox</td>
+        <td>Junior Technical Author</td>
+        <td>$86,000</td>
+      </tr>
+      <tr>
+        <td>Cedric Kelly</td>
+        <td>Senior Javascript Developer</td>
+        <td>$433,060</td>
+      </tr>
+      <tr>
+        <td>Airi Satou</td>
+        <td>Accountant</td>
+        <td>$162,700</td>
+      </tr>
+    </tbody>
+  </table>
+</ul>
+<p>
+  Nimi
+    <label for="textfield">:</label>
+  <input type="text" name="textfield" id="textfield">
+  <br>
+  Asema:
+  <input type="text" name="textfield2" id="textfield2">
+<br>
+Palkka: 
+<input type="text" name="textfield3" id="textfield3">
+<br>
+<input type="button" onclick="insertRows()" name="Insert" id="Insert" value="Insert">
+</p>
+<h2>Bonus exercises for the enthusiastics</h2>
+<ul>
+  <li dir="ltr">
+    <p dir="ltr">Write a loop, which goes through all the LI tags in the page and replaces them with a &lt;strong&gt; tagged, red text saying &quot;Replaced&quot;.</p>
+  </li>
+  <li dir="ltr">How would you replace the contents only on the ones with the word &lsquo;Select&rsquo; in them?</li></ul>
+</html>
+
+

@@ -1,0 +1,240 @@
+<HTML>
+<style>
+body {
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	color: #333333;
+}
+
+div {
+    width: 200px;
+    height: 100px;
+    border: 1px solid black;
+}
+table, tr, td{
+  border: 1px solid gray;
+  width: 50%;
+}
+
+</style>
+<script>
+
+let counter = 0;
+
+function naytaPaiva(){
+
+let i = new Date();
+let paiva = i.getDate();
+let kuukausi = i.getMonth()+1;
+let vuosi =  i.getFullYear();
+
+let nykyHetki = paiva + "/" + kuukausi + "/" + vuosi;
+
+alert(nykyHetki);
+
+}
+
+function naytaTaulukko(){
+
+let henkilot = ["Mikko Mottonen", "Kauhukuja 2", "Hollola",
+"Veera Raivo", "HikiKuja 2", "Lahti", "Markus Hassi", "Rutgertie 4",
+"Tampere", "Kirsta Herne", "Torttutie 6", "Porvoo"];
+
+document.write('<table border = "1"><tr>');
+
+for (let i = 0; i < henkilot.length; i++){
+
+if(i % 3 == 0){
+document.write("</tr><tr>");
+ }
+document.write("<td>" + henkilot[i] + "</td>");
+}
+document.write("</table>");
+}
+
+function count(){
+counter++;
+
+document.getElementById('counter').innerHTML = counter;
+
+}
+function attention(){
+let textbox = document.getElementById('textdata');
+textbox.value = 'Kirjoita juttusi!'
+textbox.style = "background: blue";
+
+}
+function validate(){
+let textbox = document.getElementById('textdata');
+if (textbox.value == ''){
+  alert('Et kirjoittanut jack shit!');
+  return false;
+}
+
+
+}
+function showCordinates(event){
+let x = event.clientX;
+let y = event.clientY;
+let cordinates = "X cordinates: " + x + ", Y cordinates: " + y;
+document.getElementById("Kordinaatit").innerHTML = cordinates;
+
+
+}
+let paikka = document.getElementById("testi");
+function getLocation(){
+if (navigator.geolocation){
+navigator.geolocation.getCurrentPosition(showPosition);
+
+}else{
+  paikka.innerHTML = "Geolocation is not supported by this browser!";
+
+}
+
+
+}
+function showPosition(position){
+paikka.innerHTML = "Latitude: " + position.coords.latitude + 
+"<br>Longitude: " + position.coords.longitude;
+
+}
+</script>
+
+<h1>Workshop 3: JavaScript Events</h1>
+<hr />
+<p>In this exercise we will practice the use of BOM and the JavaScript events. Use the lecture-material as a reference guide side by side these exercises. It might also be a 
+good idea to save the lines of code you write during the exercises for later use.</p>
+
+
+<p>&nbsp;Below you will see three buttons. Edit the source code and add an onClick-events to these buttons.</p>
+<p>
+  <button onclick="alert('Klikkasit minua!!!' + new Date())" >Button 1</button>
+  <button onclick="naytaPaiva();" >Button 1</button>
+  <button onclick="naytaTaulukko();" >Button 2</button>
+  <button>Button 3</button>
+</p>
+
+<ul>
+  <li>Button 1 should open an alert-button, which will say "You clicked me!" </li>
+  <li> When you see the button working, add the current date after the text by using the Date() -function. HINT. You can get spesific parts of the date by first creating a date 
+object var pvm = new Date(). And then calling for methods such as pvm.getDate() and pvm.getHours() etc. See <a 
+href="https://www.w3schools.com/js/js_date_methods.asp" /> this for details.</a>
+</li>
+  <li>Button 2 should call a function called showTable()". ShowTable function should output a simple HTML-table (below) to the page. Use document.write to print data. Feel 
+free to modify the data on the table. </li>
+HINT. You can print multiple lines using backticks:
+<xmp>
+var html = `
+  <h1>
+    <b>Some HTML here</b>
+  </h1>
+`;
+</xmp>
+
+<br>
+
+<table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Nimi</th>
+                <th>Virka</th>
+                <th>Palkka</th>
+            </tr>
+        </thead>
+        <tfoot>
+        </tfoot>
+        <tbody>
+            <tr>
+                <td>Pirkka Pohja</td>
+                <td>Tyoton</td>
+                <td>$320,800</td>
+            </tr>
+            <tr>
+                <td>Pekka Puota</td>
+                <td>Sihteeri</td>
+                <td>$170,750</td>
+            </tr>
+            <tr>
+                <td>Antti Dickson</td>
+                <td>Ohjelmoija</td>
+                <td>$86,000</td>
+            </tr>
+            <tr>
+                <td>Petteri Perspyyhe</td>
+                <td>Javaguru</td>
+                <td>$433,060</td>
+            </tr>
+            <tr>
+                <td>Sirpa Vinkuja</td>
+                <td>Palkanlaskija</td>
+                <td>$62,700</td>
+            </tr>
+
+        </tbody>
+    </table>
+    <br>
+
+  <li>Button 3 should print out an HTML table (Name, Addrees, Country) using data from the following JavaScript array. HINT: Use looping to go through the array and print 
+the data surrounded by HTML-tags to create the table.  </li>
+<xmp>
+var persons = ["Nyssa P. Skinner", "593-4241 Lacus, St.","Cape Verde", 
+	       "Camilla F. Strickland","391-2150 Ac Rd.","Andorra",
+	       "Reagan U. Andrews", "P.O. Box 472, 2271 Mauris Ave","Faroe Islands",
+	       "Kelsey D. Clark", "P.O. Box 866, 7793 Aliquet Ave","Bulgaria"
+];
+
+
+</xmp>
+</ul>
+
+<h2 onmouseover="console.log('Hiiresi kavi taalla');">Exercise 2</h2>
+<h2 onmouseout="console.log('Hei hei hiiri');">Exercise 2</h2>
+<ul>
+  <li>Add an&nbsp;onMouseOver event on the&nbsp;Heading "Exercise 2" of this page.&nbsp;It should&nbsp;fire when the users mouse is moved
+over&nbsp;it. Output "Stepped over my a mouse!" on the console.</li>
+  <li>Add another event, which will fire then the mouse leaves the Exercise 2 -heading. This time show an alert window to the user saying: "Bye bye mouse!"</li>
+</ul>
+  <h2>Exercise 3</h2>
+<p>Below you will see a simple form.</p>
+<ul>
+  <li>Add onfocus -event to the&nbsp;textarea below. When the user enters the textarea, it should show a text saying: "Please fill in the form with proper data.". You can try 
+modifying the background color of the box as well. &nbsp;
+</li>
+  <li>Try to use onkeydown -event on the textarea. It should calculate the number of keypresses and output them on the screen. Could you think other smart ways to use it?
+</li>
+  <li>When the form button is clicked, check if the textarea is empty. Notify the user with appropriate message. HINT: You can access the Textarea using the following 
+command:   <i>document.getElementById("textdata").value</i>. We will study the forms deeper in Workshops 4 and 5.</li>
+</ul>
+<form onsubmit="return validate(this);">
+<textarea onkeydown="count();" onfocus="attention();" id="textdata"></textarea><br>
+<h3 id="counter"></h3>
+<button>Laheta</button>
+
+</form>
+<h2>Exercise 4</h2>
+<div onmouseover="showCordinates(event);" id="Kordinaatit"></div>
+So far you have hardcoded the events into HTML tags. Make a copy of your exercise file and try to add the events dynamically, without touching the HTML at all. This can be 
+achieved using addEventListener() -function, <a target="_blank" href="https://www.w3schools.com/js/js_htmldom_eventlistener.asp"> see more here</a>.
+
+<h2>Exercise 5</h2>
+
+<div onmouseover="showCordinates(event);" id="Kordinaatit"></div>
+
+<p>Add onMouseMove -event to the DIV-element above. When you move mouse over the DIV (rectangle) the program should output the coordinates of your pointer. Try first 
+outputting to the console using console.log. <p>HINT. When the event occurs, call for a method showXY(event); Then in the actual method you can output data from the 
+mouse event using event.clientX and event.clientY variables. Study the event object in the console  and what data you can find in it.</p>
+<p> When the program is working, you can try outputting the text on the H2 element with an id "coords" the box</p> HINT: You need to use 
+document.getElementById("coordinates").innerHTML to achieve this.
+
+<H2>Exercise 6</h2>
+<button onclick="alert('Tiedot' + new paikka())">Get location</button> 
+<button>Show location</button> 
+<p id="testi"></p>
+
+<li>The first button should check <a href="https://www.w3schools.com/html/html5_geolocation.asp">Geolocation</a> of the user, and output it to the console and to the 
+page. Note: Some browsers might not allow you to do this. Try different browsers if you get errors.</li>
+<li>
+The second button should show your location on a Google Maps. You can see the map with a spesific location using the URL 
+"https://maps.googleapis.com/maps/api/staticmap?center="+latlon+"&zoom=14&size=400x300&sensor=false" where latlon is your latitude + longitute data separated by 
+comma (,).
+</li>
+</html>
