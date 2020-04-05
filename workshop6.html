@@ -1,0 +1,122 @@
+<HTML>
+<style>
+body {
+                             font-family: "Trebuchet MS", Helvetica, sans-serif;
+                             color: #333333;
+}
+
+div {
+    width: 200px;
+    height: 100px;
+    border: 1px solid black;
+}
+table, tr, td{
+  border: 1px solid gray;
+  width: 50%;
+}
+
+</style>
+
+<script>
+function haeData(){
+let destin = document.getElementById('destination').value;
+let date = document.getElementById('arrival').value;
+let services = document.getElementById('services').innerHTML;
+let selections = document.querySelectorAll('input[type=checkbox]:checked');
+let extras = "";
+
+for (let i = 0; i < selections.length; i++){
+console.log(selections[i].value);
+extras += selections[i].value +", ";
+}
+localStorage.setItem("extras", extras);
+localStorage.setItem("destination", destin);
+localStorage.setItem("date", date);
+localStorage.setItem("services", services);
+console.log("Data saved!!!");
+
+}
+
+function update(){
+for (let i in localStorage){
+console.log(i + ' = ' + localStorage[i]);
+
+}
+
+}
+
+
+</script>
+<!-- exercise #2 -->
+
+<body onload="update();">
+
+<h1>Workshop 6: Using Localstorage</h1>
+<hr />
+<h2>Exercise 1: Saving the entered data</h2>
+<p>Use localstorage to save the data entered to the form fields below. The JavaScript code 
+should read the values entered when the user clicks the button and save the data into 
+localstorage. Use Developer Tools to study what data is saved and how. You can even try to 
+modify this data using the developer tools.</p>
+
+<p>
+  <label for="textfield">Destination:</label>
+  <input type="text" name="textfield" id="destination">
+  <br>
+  <label for="textfield">Arrival Date:</label>
+  <input type="text" name="textfield" id="arrival">
+  <br>
+  <div id="services">
+  Services:
+  <label>
+    <br>
+    <input type="checkbox" name="CheckboxGroup1" value="Internet" 
+id="CheckboxGroup1_0">
+  Internet</label>
+  <br>
+  <label>
+    <input type="checkbox" name="CheckboxGroup1" value="AC" id="CheckboxGroup1_1">
+    Air Conditioning</label>
+  <br>
+  <label>
+    <input type="checkbox" name="CheckboxGroup1" value="minibar" 
+id="CheckboxGroup1_2">
+    Minibar</label>
+  <br>
+  <label>
+    <input type="checkbox" name="CheckboxGroup1" value="car" id="CheckboxGroup1_3">
+    Car rent</label>
+  <br>
+  <label>
+    <input type="checkbox" name="CheckboxGroup1" value="sauna" 
+id="CheckboxGroup1_4">
+    Sauna 
+</label>
+
+</p>
+</div>	
+<p>
+  <input type="button" name="button" id="button" value="Reserve" onclick="haeData()">
+</p>
+<p><br>
+</p>
+<p>&nbsp;</p>
+<h2>Exercise 2: Reloading the saved data</h2>
+<p>After you have managed to save some data to a localstorage, its time to utilize it. Add a 
+piece of code to this page, which will check if there is saved data available from the first 
+assignment, and load them into a div with an id="sessionData". This should happen when the 
+page is loaded, because we want the data to be loaded then as well. HINT: use onLoad -
+event on the body tag.</p>
+<div id="sessiondata">Session data goes here!</div>
+<h2>Exercise 3: Sessionstorage vs. localstorage</h2>
+<p>Compare sessionstorage and localstorage. Think of a few examples on where each 
+should be used. Copy the form above here and implement sessionstorage for it. See what 
+happens, when you close the browser. You can utilize developer tools to study the data (F12, 
+select Application tab, then LocalStorage on the left).</p>
+<h2>Exercise 4:</h2>
+<p>Try to add localstorage features to your project work. This means, that todo-list for 
+example, would remember the data that you have entered between browser refresh and even 
+restarts.</p>
+</body>
+
+</html>
