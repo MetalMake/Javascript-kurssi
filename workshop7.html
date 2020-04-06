@@ -1,0 +1,259 @@
+<html><head><link href="/learning/styles/default.css" rel="stylesheet" type="text/css" /></head>
+<body>
+<script>
+function parseData(){
+let quodata = document.getElementsByTagName('quote');
+let autdata = document.getElementsByTagName('author');
+
+console.log(quodata[0].innerHTML);
+console.log(autdata[0].innerHTML);
+
+}
+
+function loadXMLfile(){
+let xmlhttp = new XMLHttpRequest();
+
+xmlhttp.open("GET", "http://iceberg-cycle.codio.io/5: Asynchronous JavaScript (AJAX)/famous-quotes.xml", true);
+xmlhttp.send();
+xmlhttp.onreadystatechange = function(){
+if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
+document.getElementById("quotes").innerHTML = xmlhttp.responseText;
+
+}
+
+}
+
+
+}
+
+function loadAndParseXML(){
+let xmlhttp = new XMLHttpRequest();
+
+xmlhttp.open("GET", "http://iceberg-cycle.codio.io/5: Asynchronous JavaScript (AJAX)/famous-quotes.xml", true);
+xmlhttp.send();
+xmlhttp.onreadystatechange = function(){
+if (xmlhttp.readyState == 1){
+document.getElementById("myDiv").innerHTML = "Odota kun lataan...";
+
+}
+if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
+let xmlDoc = xmlhttp.responseXML;
+let quotes = xmlDoc.getElementsByTagName("quote");
+let authors = xmlDoc.getElementsByTagName("author");
+
+let txt = "<table>";
+for (i = 0; i < quotes.length; i++ ){
+txt += "<tr><td>" + quotes[i].childNodes[0].nodeValue + "</td>" + "<td>" + authors[i].childNodes[0].nodeValue + "</td></tr>";
+console.log(txt);
+}
+txt += "</table>";
+document.getElementById("tabledata").innerHTML = txt;
+}
+
+
+}
+
+
+
+}
+
+function loadAndParseNews(filename){
+
+let xmlhttp = new XMLHttpRequest();
+
+xmlhttp.open("GET", filename, true);
+xmlhttp.send();
+xmlhttp.onreadystatechange = function(){
+
+	if (xmlhttp.readyState == 1){
+	document.getElementById("newsfeed").innerHTML = "Odota taas, kun ladataan...";
+	}
+	if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
+	let xmlDoc = xmlhttp.responseXML;
+	console.log(xmlDoc);
+    let items = xmlDoc.getElementsByTagName("item");
+	let item, feedlink, name, description, content = '';
+	
+	for (i = 0;i < items.length; i++){
+	feedlink = items[i].getElementsByTagName('link').item(0).firstChild.nodeValue;
+	name = items[i].getElementsByTagName('title').item(0).firstChild.nodeValue;
+	item = '<li>' + name + '</li>';
+	item = '<li><a href="'+ feedlink + '">' + name + '</a></li>';
+	content += item;
+	}
+	document.getElementById("newsfeed").innerHTML = "<ul>" + content + "</ul>";
+	}
+
+}
+
+}
+
+
+
+
+
+
+</script>	
+	
+	
+	
+	
+	
+	
+	
+	<div>
+<h1>Workshop 7: Using AJAX and parsing XML</h1>
+</div>
+<div><hr /></div>
+<div>
+<p><br /> AJAX stands for Active JavaScript with XML and basically means a way to request a script to fetch data from a file or an API and return it back to the script. Then we can utilize the data either by 
+injecting it into the page as such or by first parsing the data (using loops) and then format the data the way we like. Chrome Developer Tools offer nice way of tracking AJAX calls as well. Press F12 to open the 
+tools and click Network-tab. Here you are able to see the requests and responses in action.</p>
+</div>
+<div>
+<p>NOTE: Ajax calls will cause security issues in many cases. If you encounter those, I recommend to sign up for a free account in Codeanywehere.com and do these exercises there. Copy this exercise-file there 
+and start doing the exercises.</p>
+</div>
+<div>
+</div>
+<div>
+<h2>Exercise 1: Parsing XML data</h2>
+</div>
+<p>This page has XML data embedded into it. See page source, line 78. The browser cannot display it properly, but its there. Below you can also see the structure data. Write a function called parseData(), which 
+will output the quote and author tags from XML when button is clicked. Hint: Use document.getElementsByTagName() function. See PowerPoint for reference.</p>
+<div><input type="button" id="Fetch" name="Fetch" value="Button" onclick="parseData()" /></div>
+<div>
+<pre>
+<!-- THIS IS HERE ONLY FOR DISPLAYing THE STRUCTURE OF THE XML DATA IN THE BROWSER -->
+  I'm not concerned about all hell breaking loose, but that a PART of hell will break loose... it'll be much harder to detect.
+	124
+	George Carlin
+	
+	
+	The biggest problem with every art is by the use of appearance to create a loftier reality. 
+	Johann Wolfgang von Goethe
+<!-- END -->
+<!-- THIS IS THE START OF XML DATA -->
+<!-- THIS IS HERE ONLY FOR DISPLAYing THE STRUCTURE OF THE XML DATA IN THE BROWSER -->
+
+&lt;quotes&gt;
+  &lt;quote&gt;I&#39;m not concerned about all hell breaking loose, but that a PART of hell will break loose... it&#39;ll be much harder to detect.&lt;/quote&gt;
+	&lt;length&gt;124&lt;/length&gt;
+	&lt;author&gt;George Carlin&lt;/author&gt;
+	&lt;/quotes&gt;
+	&lt;quotes&gt;
+	&lt;quote&gt;The biggest problem with every art is by the use of appearance to create a loftier reality. &lt;/quote&gt;
+	&lt;author&gt;Johann Wolfgang von Goethe&lt;/author&gt;
+&lt;/quotes&gt;
+
+</pre>
+
+<!-- THIS IS THE START OF XML DATA -->
+
+		<quotes>
+			<quote>I'm not concerned about all hell breaking loose, but that a PART of hell will break loose... it'll be much harder to detect.</quote>
+			<length>124</length>
+			<author>George Carlin</author>
+		</quotes>
+		<quotes>
+		 <quote>The biggest problem with every art is by the use of appearance to create a loftier reality. </quote>
+			<author>Johann Wolfgang von Goethe</author>
+	</quotes>
+
+<!-- END OF XML DATA -->
+</pre>
+</div>
+<p>I'm not concerned about all hell breaking loose, but that a PART of hell will break loose... it'll be much harder to detect. 124 George Carlin The biggest problem with every art is by the use of appearance to 
+create a loftier reality. Johann Wolfgang von Goethe</p>
+<!-- THIS IS THE END  OF XML DATA -->
+<div>
+<h2>Exercise 2: AJAX call to an XML file</h2>
+</div>
+<div>
+<p>Create an AJAX script, which will load the famous-quotes.xml file from the server: http://iceberg-cycle.codio.io/5: Asynchronous JavaScript (AJAX)/famous-quotes.xml)<br /> and inject the raw contents of the 
+file to a div below (id=�quotes�). Here's another alternative: http://quotes.rest/qod.xml.</p>
+</div>
+<div>
+<p>NOTE: The raw XML data looks weird on the browser. You can use developer tools to study the contents by inspecting the DIV.</p>
+</div>
+<div>
+<p>The sample function shown in PowerPoint slides is pasted below.</p>
+</div>
+<div>
+<pre>// Load AJAX content into web page
+        function loadXMLDoc() {
+            // Create AJAX object
+            var xmlhttp = new XMLHttpRequest();
+            // Specify the data / url to be fetched
+            xmlhttp.open("GET", "INSERT URL/FILENAME HERE", true);
+            xmlhttp.send();
+            xmlhttp.onreadystatechange = function() {
+                if(xmlhttp.readyState == 4 &amp;&amp; xmlhttp.status == 200) {
+					 // find myDiv and insert results there
+                    document.getElementById("myDiv").innerHTML = xmlhttp.responseText;
+                }
+            }
+        }
+</pre>
+</div>
+<div>&nbsp;</div>
+<div>
+<p><input type="button" id="Fetch2" name="Fetch2" value="Button" onclick="loadXMLfile()" /></p>
+</div>
+<div>
+<div id="quotes">&nbsp;</div>
+</div>
+<div>
+</div>
+<div>
+<h2>Exercise 3: Parsing the XML</h2>
+</div>
+<div>
+<p>Continue working from exercise 2. Once you have injected the results, JavaScript to parse the XML/JSON-file and output the file contents in a nice HTML-table below. Add some styles to the table.</p>
+</div>
+<div>
+<p><input type="button" id="Fetch3" name="Fetch3" value="Button" onclick="loadAndParseXML()" /></p>
+</div>
+<div>
+<div id="tabledata">
+<table border="1">
+<tbody>
+<tr>
+<td><strong>Quote</strong></td>
+<td><strong>Author</strong></td>
+</tr>
+<tr>
+<td>Here goes the quote data</td>
+<td>Here goes the author data</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div>
+</div>
+<div>
+<h2>Exercise 4: AJAX call to a live newsfeed</h2>
+</div>
+<div>
+<p><br /> Next try fetching data from a web service. Use either Yahoo news feed http://php-mikastenberg111110.codeanyapp.com/yahoonews.xml ( downloaded from https://news.yahoo.com/rss/topstories, 
+security restriction do not allow sending AJAX calls to Yahoo) or a finnish one (http://www.iltalehti.fi/rss/uutiset.xml OR https://codio.com/mjstenbe/dynamic-web-
+apps/tree/5%3A%20Asynchronous%20JavaScript%20(AJAX)%2Filtalehti.xml). Parse the results and display on page below as a list. You can add link to the original news item as well.</p>
+</div>
+<div>
+<ul>
+<li><a href="#">News heading 1</a></li>
+<li><a href="#">News heading 2</a></li>
+<li><a href="#">News heading 3</a></li>
+</ul>
+</div>
+<div><input type="button" id="Fetch3" name="Fetch3" value="Load YAHOO newsfeed" onclick="loadAndParseNews('https://www.yahoo.com/news/rss/')" /></div>
+<div><input type="button" id="Fetch3" name="Fetch3" value="Load Iltalehti Newsfeed" onclick="loadAndParseNews('http://www.iltalehti.fi/rss/uutiset.xml')" /></div>
+<div>
+<div id="newsfeed">&nbsp;</div>
+</div></body>
+</html>
